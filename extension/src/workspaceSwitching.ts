@@ -272,6 +272,18 @@ export class WorkspaceSwitchingExtension implements ISubExtension {
     }
 
     apply(): void {
+        // Skip if no animation modifiers are set
+        // This prevents custom gestures from interfering with native GNOME handling
+        if (
+            !this._verticalWorkspaceAnimationModifier &&
+            !this._horizontalWorkspaceAnimationModifier
+        ) {
+            console.log(
+                '[TouchpadGesture] WorkspaceSwitchingExtension: No animation modifiers set, skipping custom gesture attachments'
+            );
+            return;
+        }
+
         this._verticalWorkspaceAnimationModifier?.apply();
         this._horizontalWorkspaceAnimationModifier?.apply();
 

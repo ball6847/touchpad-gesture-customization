@@ -144,25 +144,14 @@ export default class TouchpadGestureCustomization extends Extension {
             'workspace-switching-states'
         );
 
-        // Disable default workspace navigation using horizontal swipe
-        gestureExtension.setHorizontalWorkspaceAnimationModifier(
-            [],
-            workspaceSwitchingState
-        );
-
-        // Enable vertical swipe for workspace navigation
-        if (verticalWorkspaceNavigationFingers?.length)
-            gestureExtension.setVerticalWorkspceAnimationModifier(
-                verticalWorkspaceNavigationFingers,
-                workspaceSwitchingState
-            );
-
-        // Enable horizontal swipe for workspace navigation
-        if (horizontalWorkspaceNavigationFingers?.length)
-            gestureExtension.setHorizontalWorkspaceAnimationModifier(
-                horizontalWorkspaceNavigationFingers,
-                workspaceSwitchingState
-            );
+        // NOTE: WorkspaceAnimationModifier creates global swipe trackers that interfere
+        // with the app grid's internal swipe handling. Disabled to prevent app grid crashes.
+        // See: https://github.com/HieuTNg/touchpad-gesture-customization/issues/XXX
+        //
+        // DISABLED:
+        // gestureExtension.setHorizontalWorkspaceAnimationModifier([], workspaceSwitchingState);
+        // gestureExtension.setVerticalWorkspceAnimationModifier(verticalWorkspaceNavigationFingers, workspaceSwitchingState);
+        // gestureExtension.setHorizontalWorkspaceAnimationModifier(horizontalWorkspaceNavigationFingers, workspaceSwitchingState);
 
         this._extensions.push(gestureExtension);
 
